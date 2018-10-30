@@ -1,0 +1,7 @@
+Order Id: 1
+Part num: 111
+Price: 4.99
+Quantity: 3
+Tax: 0.2994
+Shipping: 0.7485000000000002
+Total: 16.0179
