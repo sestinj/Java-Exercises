@@ -49,6 +49,22 @@ public class TTT implements ActionListener {
                     panel.remove(theButton);
                 }
                 frame.pack();
+            } else {
+                //Check for cat
+                Boolean isCat = true;
+                for (JButton butt: buttons) {
+                    if (butt.getText() == "") {
+                        isCat = false;
+                    }
+                }
+                if (isCat) {
+                    JLabel label = new JLabel("CAT!");
+                    panel.add(label);
+                    for (JButton theButton:buttons) {
+                        panel.remove(theButton);
+                    }
+                frame.pack();
+                }
             }
             if (turn == "O") {
                 turn = "X";
