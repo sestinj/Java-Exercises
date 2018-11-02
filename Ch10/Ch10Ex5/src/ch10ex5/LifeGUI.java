@@ -12,7 +12,7 @@ import java.lang.Math;
  *
  * @author student
  */
-public class LifeGUI {
+public class LifeGUI implements ActionListener {
     private JFrame frame;
     private JPanel panel;
     private JButton[][] buttons = new JButton[20][20];
@@ -41,5 +41,18 @@ panel.add(next);
         
         frame.pack();
         frame.setVisible(true);
+    }
+
+
+    func event() {
+        if(e.getActionCommand() == “next”) {
+
+        } else {
+
+        }
+    }
+
+    private void updateBoard() {
+        
     }
 }
