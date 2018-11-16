@@ -132,7 +132,7 @@ public class NN implements Serializable {
         //For each layer, from the last hidden to the first hidden, working backwards
         for (int i = l-2;i>0;i--) {
             for (int k = 0;k<theta[i].length;k++) {
-                for (int j = 0;j<theta[i][k];j++) {
+                for (int j = 0;j<theta[i][k].length;j++) {
                     
                 }
             }
