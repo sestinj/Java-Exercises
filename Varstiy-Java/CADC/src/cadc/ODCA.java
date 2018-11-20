@@ -31,10 +31,12 @@ public class ODCA implements ActionListener {
     Canvas canvas;
     Graphics g;
     
-    //RULE: 111, 110, 101, 100, 000, 001, 010, 011
-    int x = 0b01010101;
+    private int size = 400;
+    private int currentRow = 0;
+    //RULE:            111,   110,  101,   100,  000,   001,   010,   011
+    boolean[] rule = {false, true, false, true, false, false, false, true};
     boolean running = false;
-    ArrayList<ArrayList<Boolean>> cells = new ArrayList<ArrayList<Boolean>>();
+    private boolean[][] cells = new boolean[size][size];
     
     public ODCA() {
         this.frame = new JFrame("CADC");
@@ -72,39 +74,99 @@ public class ODCA implements ActionListener {
         panel.add(pause);
         
         canvas = new Canvas();
-        canvas.setSize(400, 400);
+        canvas.setSize(size, size);
         frame.add(canvas);
         
         frame.pack();
         frame.setVisible(true);
         
         g = canvas.getGraphics();
+        
+        //Initial state
+        for (int i = 0;i<cells.length;i++) {
+            for (int j = 0;j<cells[i].length;j++) {
+                cells[i][j] = false;
+            }
+        }
+        cells[0][200] = true;
+        this.update();
     }
 
-    
-    private void drawSquare(int x, int y, int on) {
-        g.setColor(Color.WHITE);
-        if (on==1) {g.setColor(Color.BLACK);}
-        g.drawRect(x, y, 1, 1);
+    private void update() {
+        //clear();
+        for (int i = 0;i<cells.length;i++) {
+            for (int j = 0;j<cells[i].length;j++) {
+                this.drawSquare(j, i, cells[i][j]);
+            }
+        }
     }
-    
+    private void drawSquare(int x, int y, boolean on) {
+        g.setColor(Color.WHITE);
+        if (on) {g.setColor(Color.BLACK);}
+        g.drawRect(x, y, 0, 0);
+    }
+    private void randomInit(int row) {
+        for (int i = 0;i<size;i++) {
+            cells[row][i] = false;
+            if(Math.random()<0.05){cells[row][i] = true;}
+        }
+    }
     private void clear() {
         g.clearRect(0, 0, canvas.getSize().width, canvas.getSize().height);
     }
     private void increment() {
-        
+        if (currentRow>=399) {
+            this.frame.dispose();
+            return;
+        }
+        for (int i = 1;i<size-1;i++) {
+            boolean left = cells[currentRow][i-1];
+            boolean right = cells[currentRow][i+1];
+            boolean self = cells[currentRow][i];
+            boolean newColor;
+            if (left) {
+                if (right) {
+                    if (self) {
+                        newColor = false;
+                    } else {
+                        newColor = true;
+                    }
+                } else {
+                    if (self) {
+                        newColor = false;
+                    } else {
+                        newColor = true;
+                    }
+                }
+            } else {
+                if (right) {
+                    if (self) {
+                        newColor = false;
+                    } else {
+                        newColor = true;
+                    }
+                } else {
+                    if (self) {
+                        newColor = false;
+                    } else {
+                        newColor = false;
+                    }
+                }
+            }
+            cells[currentRow+1][i] = newColor;
+        }
+        currentRow ++;
+        update();
     }
     private void decrement() {
         
     }
     
-    
-    
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case "Reset":
-                randomInit();
+                clear();
                 break;
             case "+":
                 increment();

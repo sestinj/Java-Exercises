@@ -16,7 +16,7 @@ public class CADC {
      */
     
     static void runGUI() {
-        Life life = new Life();
+        ODCA odca = new ODCA();
     }
     public static void main(String[] args) {
         // TODO code application logic here
