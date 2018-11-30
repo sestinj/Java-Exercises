@@ -12,8 +12,7 @@ package craps;
 public class Die {
     
     public Die() {}
-    public void roll() {
-        int dots = this.getNumDots();
-    }
-    public int getNumDots() {return (int)(Math.random()*5+1);}
+    public int dots;
+    public void roll() {this.dots = (int)(Math.random()*5+1);}
+    public int getNumDots() {return this.dots;}
 }

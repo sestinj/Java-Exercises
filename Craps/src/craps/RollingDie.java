@@ -142,9 +142,6 @@ public class RollingDie extends Die
     g.fillRoundRect(x, y, dieSize, dieSize, dieSize/4, dieSize/4);
     drawDots(g, x, y, getNumDots());
   }
-  public int getNumDots() {
-      return (int)(Math.random()*5+1);
-  }
   // Draws a given number of dots on this die
   private void drawDots(Graphics g, int x, int y, int numDots)
   {
@@ -169,21 +166,25 @@ public class RollingDie extends Die
       case 2:
           g.fillOval(x, y1, dotSize, dotSize);
           g.fillOval(x3, y3, dotSize, dotSize);
+          break;
       case 3:
           g.fillOval(x1, y1, dotSize, dotSize);
           g.fillOval(x2, y2, dotSize, dotSize);
           g.fillOval(x3, y3, dotSize, dotSize);
+          break;
       case 4:
           g.fillOval(x1, y1, dotSize, dotSize);
           g.fillOval(x1, y3, dotSize, dotSize);
           g.fillOval(x3, y1, dotSize, dotSize);
           g.fillOval(x3, y3, dotSize, dotSize);
+          break;
       case 5:
           g.fillOval(x1, y1, dotSize, dotSize);
           g.fillOval(x1, y3, dotSize, dotSize);
           g.fillOval(x3, y1, dotSize, dotSize);
           g.fillOval(x3, y3, dotSize, dotSize);
           g.fillOval(x2, y2, dotSize, dotSize);
+          break;
       case 6:
           g.fillOval(x1, y1, dotSize, dotSize);
           g.fillOval(x1, y3, dotSize, dotSize);
@@ -191,6 +192,7 @@ public class RollingDie extends Die
           g.fillOval(x3, y3, dotSize, dotSize);
           g.fillOval(x1, y2, dotSize, dotSize);
           g.fillOval(x3, y2, dotSize, dotSize);
+          break;
     }
   }
 }

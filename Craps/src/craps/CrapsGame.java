@@ -16,7 +16,7 @@ public class CrapsGame
    */
   public int processRoll(int total)
   {
-    
+      System.out.println(total);
     if (point == 0) {
         switch (total) {
             case 7:
