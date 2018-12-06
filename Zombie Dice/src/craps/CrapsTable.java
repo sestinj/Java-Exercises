@@ -75,8 +75,10 @@ public class CrapsTable extends JPanel
       clock.stop();
       DiceState[] states = {die1.getState(), die2.getState(), die3.getState()};
       int result = game.processRoll(states);
-      int point = game.getPoint();
-      display.update(result, point);
+      int brains = game.getNumBrains();
+      int shotguns = game.getNumShotguns();
+      int runners = game.getNumRunners();
+      display.update(result, brains, shotguns, runners);
     }
 
     repaint();
@@ -86,7 +88,7 @@ public class CrapsTable extends JPanel
   // returns false
   public boolean diceAreRolling()
   {
-    return die1.isRolling() || die2.isRolling();
+    return die1.isRolling() || die2.isRolling() || die3.isRolling();
   }
 
   // Called automatically after a repaint request
@@ -95,5 +97,6 @@ public class CrapsTable extends JPanel
     super.paintComponent(g);
     die1.draw(g);
     die2.draw(g);
+    die3.draw(g);
   }
 }

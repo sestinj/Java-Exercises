@@ -4,7 +4,7 @@ package craps;
 
 public class CrapsGame
 {
-  private int point = 0;
+  
 
   /**
    *  Calculates the result of the next dice roll in the Craps game.
@@ -16,37 +16,32 @@ public class CrapsGame
    */
   public int processRoll(DiceState[] states)
   {
-    if (point == 0) {
-        switch (total) {
-            case 7:
-            case 11:
-                return 1;
-            case 2:
-            case 3:
-            case 12:
-                return -1;
-            default:
-                point = total;
-                return 0;
+    for (DiceState state:states) {
+        if (state == DiceState.brain) {
+            numBrains ++;
+        } else if (state == DiceState.shotgun) {
+            numShotguns ++;
+        } else {
+            numRunners ++;
         }
-    } else {
-        if (total == point) {
-            point = 0;
-            return 1;
-        } else if (total == 7) {
-            point = 0;
+    }
+    if (numShotguns >= 3) {
             return -1;
         } else {
             return 0;
         }
-    }
   }
-
-  /**
-   *  Returns the saved point
-   */
-  public int getPoint()
-  {
-    return point;
+  
+  private int numBrains;
+  public int getNumBrains() {
+      return numBrains;
+  }
+  private int numShotguns;
+  public int getNumShotguns() {
+      return numShotguns;
+  }
+  private int numRunners;
+  public int getNumRunners() {
+      return numRunners;
   }
 }

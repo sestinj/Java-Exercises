@@ -6,8 +6,8 @@ import javax.swing.border.*;
 
 public class DisplayPanel extends JPanel
 {
-  private JTextField wonText, lostText, pointText;
-  private int wonCount, lostCount;
+  private JTextField brainText, shotgunText, runnerText;
+  private int brainCount, shotgunCount, runnerCount;
 
   // Constructor
   public DisplayPanel()
@@ -15,53 +15,50 @@ public class DisplayPanel extends JPanel
     super(new GridLayout(2, 3, 10, 0));
     setBorder(new EmptyBorder(0, 0, 5, 0));
 
-    add(new JLabel("    Won:"));
-    add(new JLabel("    Lost:"));
-    add(new JLabel("    Point:"));
+    add(new JLabel("    Brains:"));
+    add(new JLabel("    Shotguns:"));
+    add(new JLabel("    Runners:"));
 
     Font displayFont = new Font("Monospaced", Font.BOLD, 16);
 
-    wonText = new JTextField("  0", 5);
-    wonText.setFont(displayFont);
-    wonText.setEditable(false);
-    wonText.setBackground(Color.WHITE);
-    add(wonText);
+    brainText = new JTextField("  0", 5);
+    brainText.setFont(displayFont);
+    brainText.setEditable(false);
+    brainText.setBackground(Color.WHITE);
+    add(brainText);
 
-    lostText = new JTextField("  0", 5);
-    lostText.setFont(displayFont);
-    lostText.setEditable(false);
-    lostText.setBackground(Color.WHITE);
-    add(lostText);
+    shotgunText = new JTextField("  0", 5);
+    shotgunText.setFont(displayFont);
+    shotgunText.setEditable(false);
+    shotgunText.setBackground(Color.WHITE);
+    add(shotgunText);
 
-    pointText = new JTextField(5);
-    pointText.setFont(displayFont);
-    pointText.setEditable(false);
-    pointText.setBackground(Color.DARK_GRAY);
-    add(pointText);
+    runnerText = new JTextField(5);
+    runnerText.setFont(displayFont);
+    runnerText.setEditable(false);
+    runnerText.setBackground(Color.DARK_GRAY);
+    add(runnerText);
   }
 
   // Updates this display, based on the result and
   // "point" in the previous roll
-  public void update(int result, int point)
+  public void update(int result, int brains, int shotguns, int runners)
   {
-    if (result > 0)
+    if (result != 0)
     {
-      wonCount++;
-      wonText.setText("  " + wonCount);
-      pointText.setText("");
-      pointText.setBackground(Color.DARK_GRAY);
-    }
-    else if (result < 0)
-    {
-      lostCount++;
-      lostText.setText("  " + lostCount);
-      pointText.setText("");
-      pointText.setBackground(Color.DARK_GRAY);
+        brainCount += brains;
+        shotgunCount += shotguns;
+        runnerCount += runners;
+        brainText.setText(" " + brainCount);
+        shotgunText.setText(" " + shotgunCount);
+        runnerText.setText(" " + runnerCount);
     }
     else
     {
-      pointText.setText("  " + point);
-      pointText.setBackground(Color.YELLOW);
+      runnerCount = 0;
+      shotgunCount = 0;
+      shotgunText.setText("");
+      runnerText.setText("");
     }
   }
 }

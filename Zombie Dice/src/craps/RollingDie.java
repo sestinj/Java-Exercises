@@ -2,8 +2,11 @@
 package craps;
 import java.awt.*;
 import javax.swing.*;
+import javax.imageio.*;
+import java.awt.image.*;
+import java.io.*;
 
-public class RollingDie extends Die
+public class RollingDie extends Die implements ImageObserver
 {
   private static final double slowdown = 0.97,
                               speedFactor = 0.04,
@@ -25,12 +28,10 @@ public class RollingDie extends Die
   }
 
   // Constructor: sets this die "off the table"
-  private Die die;
-  public RollingDie(Color color)
-  {
+  public RollingDie(Color color) {
+    super(color);
     xCenter = -1;
     yCenter = -1;
-    this.die = new Die(color);
   }
 
   // Starts this die rolling
@@ -129,10 +130,8 @@ public class RollingDie extends Die
       g.fillRoundRect(x, y, dieSize, dieSize, dieSize/4, dieSize/4);
     else
       g.fillOval(x - 2, y - 2, dieSize + 4, dieSize + 4);
-
-    Die die = new Die();
-    die.roll();
-    drawDots(g, x, y, die.getState());
+    this.roll();
+    drawDots(g, x, y, this.getState());
   }
 
   // Draws this die when stopped
@@ -142,10 +141,10 @@ public class RollingDie extends Die
     int y = yCenter - dieSize / 2;
     g.setColor(Color.RED);
     g.fillRoundRect(x, y, dieSize, dieSize, dieSize/4, dieSize/4);
-    drawDots(g, x, y, getNumDots());
+    drawDots(g, x, y, getState());
   }
   // Draws a given number of dots on this die
-  private void drawDots(Graphics g, int x, int y, int numDots)
+  private void drawDots(Graphics g, int x, int y, DiceState state)
   {
     g.setColor(Color.red);
     g.fillRoundRect(x, y, dieSize, dieSize, dieSize/4, dieSize/4);
@@ -160,41 +159,29 @@ public class RollingDie extends Die
     int y2 = y + 3*step;
     int y3 = y + 5*step + 1;
 
-    switch (numDots)
-    {
-      case 1:
-        g.fillOval(x2, y2, dotSize, dotSize);
-        break;
-      case 2:
-          g.fillOval(x, y1, dotSize, dotSize);
-          g.fillOval(x3, y3, dotSize, dotSize);
-          break;
-      case 3:
-          g.fillOval(x1, y1, dotSize, dotSize);
-          g.fillOval(x2, y2, dotSize, dotSize);
-          g.fillOval(x3, y3, dotSize, dotSize);
-          break;
-      case 4:
-          g.fillOval(x1, y1, dotSize, dotSize);
-          g.fillOval(x1, y3, dotSize, dotSize);
-          g.fillOval(x3, y1, dotSize, dotSize);
-          g.fillOval(x3, y3, dotSize, dotSize);
-          break;
-      case 5:
-          g.fillOval(x1, y1, dotSize, dotSize);
-          g.fillOval(x1, y3, dotSize, dotSize);
-          g.fillOval(x3, y1, dotSize, dotSize);
-          g.fillOval(x3, y3, dotSize, dotSize);
-          g.fillOval(x2, y2, dotSize, dotSize);
-          break;
-      case 6:
-          g.fillOval(x1, y1, dotSize, dotSize);
-          g.fillOval(x1, y3, dotSize, dotSize);
-          g.fillOval(x3, y1, dotSize, dotSize);
-          g.fillOval(x3, y3, dotSize, dotSize);
-          g.fillOval(x1, y2, dotSize, dotSize);
-          g.fillOval(x3, y2, dotSize, dotSize);
-          break;
+    Image img;
+    if (state == DiceState.brain) {
+        img = loadImage("brain");
+    } else if (state == DiceState.shotgun) {
+        img = loadImage("shotgun");
+    } else {
+        img = loadImage("runner");
     }
+    g.drawImage(img, x, y, this);
   }
+  
+  private Image loadImage(String name) {
+      BufferedImage img = null;
+      try {
+          img = ImageIO.read(new File(name));
+      } catch (IOException e) {
+          System.out.println(e.getMessage());
+      }
+      return img;
+  }
+
+    @Override
+    public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
+        return true;
+    }
 }
