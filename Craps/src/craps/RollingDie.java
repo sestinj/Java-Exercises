@@ -25,8 +25,10 @@ public class RollingDie extends Die
   }
 
   // Constructor: sets this die "off the table"
-  public RollingDie()
+  private Die die;
+  public RollingDie(Color color)
   {
+    this.die = new Die(color);
     xCenter = -1;
     yCenter = -1;
   }

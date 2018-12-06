@@ -9,7 +9,7 @@ import javax.swing.border.*;
 public class CrapsTable extends JPanel
                         implements ActionListener
 {
-  private RollingDie die1, die2;
+  private RollingDie[] die;
   private final int delay = 20;
   private Timer clock;
   private CrapsGame game;
@@ -22,8 +22,12 @@ public class CrapsTable extends JPanel
     setBorder(new LineBorder(Color.ORANGE.darker(), 3));
     display = displ;
     game = new CrapsGame();
-    die1 = new RollingDie();
-    die2 = new RollingDie();
+    die = new RollingDie[13];
+    for (int i = 0;i<13;i++) {
+        if (i < 4) {
+            die[i] = new RollingDie();
+        }
+    }
     clock = new Timer(delay, this);
   }
 
