@@ -14,7 +14,7 @@ public class RollingDie extends Die implements ImageObserver
 
   private static int tableLeft, tableRight, tableTop, tableBottom;
 
-  private final int dieSize = 24;
+  private final int dieSize = 64;
   private int xCenter, yCenter;
   private double xSpeed, ySpeed;
 
@@ -161,11 +161,11 @@ public class RollingDie extends Die implements ImageObserver
 
     Image img;
     if (state == DiceState.brain) {
-        img = loadImage("brain");
+        img = loadImage("brain.png");
     } else if (state == DiceState.shotgun) {
-        img = loadImage("shotgun");
+        img = loadImage("shotgun.png");
     } else {
-        img = loadImage("runner");
+        img = loadImage("runner.png");
     }
     g.drawImage(img, x, y, this);
   }
@@ -177,7 +177,8 @@ public class RollingDie extends Die implements ImageObserver
       } catch (IOException e) {
           System.out.println(e.getMessage());
       }
-      return img;
+      Image scaledImg = img.getScaledInstance(dieSize, dieSize, 0);
+      return scaledImg;
   }
 
     @Override
