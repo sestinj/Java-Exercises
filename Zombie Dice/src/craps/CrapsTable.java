@@ -12,9 +12,9 @@ public class CrapsTable extends JPanel
   private RollingDie[] die;
   private RollingDie die1, die2, die3;
   private final int delay = 20;
-  private Timer clock;
-  private CrapsGame game;
-  private DisplayPanel display;
+  final private Timer clock;
+  final private CrapsGame game;
+  final public DisplayPanel display;
 
   // Constructor
   private void initDie() {
@@ -29,10 +29,9 @@ public class CrapsTable extends JPanel
             }
         }
         randomlySelectDice();
-      return;
   }
   private void randomlySelectDice() {
-      int index1 = (int)(Math.random()*13-1);
+    int index1 = (int)(Math.random()*13-1);
     int index2 = (int)(Math.random()*13-1);
     int index3 = (int)(Math.random()*13-1);
     die1 = die[index1];
@@ -42,10 +41,10 @@ public class CrapsTable extends JPanel
   public CrapsTable(DisplayPanel displ)
   {
     initDie();
-    setBackground(Color.green);
+    setBackground(Color.green.darker().darker());
     setBorder(new LineBorder(Color.ORANGE.darker(), 3));
     display = displ;
-    game = new CrapsGame();
+    game = new CrapsGame(2);
     
     clock = new Timer(delay, this);
   }
@@ -67,20 +66,21 @@ public class CrapsTable extends JPanel
   {
     if (diceAreRolling())
     {
-      //if (!clock.isRunning())
-        //clock.restart();
-      //if (die1.isRolling()){
-        //die1.avoidCollision(die2);
-        //die1.avoidCollision(die3);
-      //}else if (die2.isRolling()){
-        //die2.avoidCollision(die1);
-        //die2.avoidCollision(die3);
-      //}else if (die3.isRolling()){
-       //   die3.avoidCollision(die1);
-         // die3.avoidCollision(die2);}
+      if (!clock.isRunning())
+        clock.restart();
+      if (die1.isRolling()){
+        die1.avoidCollision(die2);
+        die1.avoidCollision(die3);
+      }if (die2.isRolling()){
+        die2.avoidCollision(die1);
+        die2.avoidCollision(die3);
+      }if (die3.isRolling()){
+          die3.avoidCollision(die1);
+          die3.avoidCollision(die2);}
     }
     else
     {
+        System.out.println("Dice stopped rolling.");
       clock.stop();
       DiceState[] states = {die1.getState(), die2.getState(), die3.getState()};
       int result = game.processRoll(states);
@@ -109,5 +109,10 @@ public class CrapsTable extends JPanel
     die1.draw(g);
     die2.draw(g);
     die3.draw(g);
+  }
+  
+  
+  public void holdDice() {
+      this.game.nextTurn(this);
   }
 }

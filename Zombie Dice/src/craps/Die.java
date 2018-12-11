@@ -18,7 +18,7 @@ public class Die {
     public Color getColor() {
         return color;
     }
-    public void roll() {
+    public void randomizeState() {
         double rand = Math.random();
         if (this.color == Color.red) {
             if (rand < 0.5) {

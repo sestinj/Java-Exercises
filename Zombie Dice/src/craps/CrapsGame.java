@@ -32,6 +32,22 @@ public class CrapsGame
         }
   }
   
+  private Player[] players;
+  public CrapsGame(int numPlayers) {
+      this.players = new Player[numPlayers];
+      for (int i = 0;i<numPlayers;i++) {
+          this.players[i] = new Player(i+1);
+      }
+  }
+  private int currentTurn = 1;
+  public void nextTurn(CrapsTable table) {
+      currentTurn ++;
+      if (currentTurn > players.length) {
+          currentTurn = 1;
+      }
+      Player current = players[currentTurn-1];
+      table.display.update(-1, current.getNumBrains(), current.getNumShotguns(), current.getNumShotguns());
+  }
   private int numBrains;
   public int getNumBrains() {
       return numBrains;

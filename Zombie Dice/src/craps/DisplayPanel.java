@@ -36,7 +36,7 @@ public class DisplayPanel extends JPanel
     runnerText = new JTextField(5);
     runnerText.setFont(displayFont);
     runnerText.setEditable(false);
-    runnerText.setBackground(Color.DARK_GRAY);
+    runnerText.setBackground(Color.WHITE);
     add(runnerText);
   }
 
@@ -46,9 +46,9 @@ public class DisplayPanel extends JPanel
   {
     if (result != 0)
     {
-        brainCount += brains;
-        shotgunCount += shotguns;
-        runnerCount += runners;
+        brainCount = brains;
+        shotgunCount = shotguns;
+        runnerCount = runners;
         brainText.setText(" " + brainCount);
         shotgunText.setText(" " + shotgunCount);
         runnerText.setText(" " + runnerCount);

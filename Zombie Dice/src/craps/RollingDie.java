@@ -14,7 +14,7 @@ public class RollingDie extends Die implements ImageObserver
 
   private static int tableLeft, tableRight, tableTop, tableBottom;
 
-  private final int dieSize = 64;
+  private final int dieSize = 24;
   private int xCenter, yCenter;
   private double xSpeed, ySpeed;
 
@@ -37,7 +37,7 @@ public class RollingDie extends Die implements ImageObserver
   // Starts this die rolling
   public void roll()
   {
-    super.roll();
+    super.randomizeState();
     int width = tableRight - tableLeft;
     int height = tableBottom - tableTop;
     xCenter = tableLeft;
@@ -122,16 +122,17 @@ public class RollingDie extends Die implements ImageObserver
   // Draws this die when rolling with a random number of dots
   private void drawRolling(Graphics g)
   {
+    
     int x = xCenter - dieSize / 2 + (int)(3 * Math.random()) - 1;
     int y = yCenter - dieSize / 2 + (int)(3 * Math.random()) - 1;
-    g.setColor(Color.RED);
+    g.setColor(this.getColor());
 
     if (x % 2 != 0)
       g.fillRoundRect(x, y, dieSize, dieSize, dieSize/4, dieSize/4);
     else
       g.fillOval(x - 2, y - 2, dieSize + 4, dieSize + 4);
-    this.roll();
     drawDots(g, x, y, this.getState());
+    this.randomizeState();
   }
 
   // Draws this die when stopped
@@ -139,25 +140,15 @@ public class RollingDie extends Die implements ImageObserver
   {
     int x = xCenter - dieSize / 2;
     int y = yCenter - dieSize / 2;
-    g.setColor(Color.RED);
+    g.setColor(this.getColor());
     g.fillRoundRect(x, y, dieSize, dieSize, dieSize/4, dieSize/4);
     drawDots(g, x, y, getState());
   }
   // Draws a given number of dots on this die
   private void drawDots(Graphics g, int x, int y, DiceState state)
   {
-    g.setColor(Color.red);
+    g.setColor(this.getColor());
     g.fillRoundRect(x, y, dieSize, dieSize, dieSize/4, dieSize/4);
-    g.setColor(Color.WHITE);
-
-    int dotSize = dieSize / 4;
-    int step = dieSize / 8;
-    int x1 = x + step - 1;
-    int x2 = x + 3*step;
-    int x3 = x + 5*step + 1;
-    int y1 = y + step - 1;
-    int y2 = y + 3*step;
-    int y3 = y + 5*step + 1;
 
     Image img;
     if (state == DiceState.brain) {

@@ -14,14 +14,25 @@ public class ControlPanel extends JPanel
   {
     table = t;
     JButton rollButton = new JButton("Roll");
+    rollButton.setActionCommand("Roll");
     rollButton.addActionListener(this);
     add(rollButton);
+    
+    JButton holdButton = new JButton("Hold");
+    holdButton.setActionCommand("Hold");
+    holdButton.addActionListener(this);
+    add(holdButton);
   }
 
   // Called when the roll button is clicked
   public void actionPerformed(ActionEvent e)
   {
-    if (!table.diceAreRolling())
-      table.rollDice();
+    if (!table.diceAreRolling()) {
+        if (e.getActionCommand() == "Roll") {
+            table.rollDice();
+        } else {
+            table.holdDice();
+        }
+    }
   }
 }
