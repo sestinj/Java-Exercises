@@ -14,22 +14,26 @@ public class CrapsGame
    *  Returns 1 if player won, -1 if player lost,
    *  0 if player continues rolling.
    */
-  public int processRoll(DiceState[] states)
+  public int processRoll(DiceState[] states, CrapsTable table)
   {
+    current = players[currentTurn-1];
     for (DiceState state:states) {
         if (state == DiceState.brain) {
-            numBrains ++;
+            current.addBrains(1);
         } else if (state == DiceState.shotgun) {
-            numShotguns ++;
+            current.addShotguns(1);
         } else {
-            numRunners ++;
+            current.addRunners(1);
         }
     }
-    if (numShotguns >= 3) {
-            return -1;
-        } else {
-            return 0;
-        }
+    table.display.update(-1, current.getNumBrains(), current.getNumShotguns(), current.getNumRunners());
+    if (current.getNumShotguns() >= 3) {
+        this.current.clearBrains();
+        this.nextTurn(table);
+        return -1;
+    } else {
+        return 0;
+    }
   }
   
   private Player[] players;
@@ -38,26 +42,20 @@ public class CrapsGame
       for (int i = 0;i<numPlayers;i++) {
           this.players[i] = new Player(i+1);
       }
+      current = this.players[0];
   }
   private int currentTurn = 1;
+  public Player current;
   public void nextTurn(CrapsTable table) {
+      current.endTurn();
+      
       currentTurn ++;
       if (currentTurn > players.length) {
           currentTurn = 1;
       }
-      Player current = players[currentTurn-1];
-      table.display.update(-1, current.getNumBrains(), current.getNumShotguns(), current.getNumShotguns());
-  }
-  private int numBrains;
-  public int getNumBrains() {
-      return numBrains;
-  }
-  private int numShotguns;
-  public int getNumShotguns() {
-      return numShotguns;
-  }
-  private int numRunners;
-  public int getNumRunners() {
-      return numRunners;
+      current = players[currentTurn-1];
+      table.display.update(-1, current.getNumBrains(), current.getNumShotguns(), current.getNumRunners());
+      table.control.playerLabel.setText("Player " + currentTurn);
+      table.control.scoreLabel.setText("Score: " + current.getScore());
   }
 }

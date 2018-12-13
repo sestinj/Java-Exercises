@@ -9,7 +9,7 @@ public class Craps extends JFrame
   // Constructor
   public Craps()
   {
-    super("Craps");
+    super("Zombie Dice");
 
     DisplayPanel display = new DisplayPanel();
     CrapsTable table = new CrapsTable(display);

@@ -33,7 +33,7 @@ public class DisplayPanel extends JPanel
     shotgunText.setBackground(Color.WHITE);
     add(shotgunText);
 
-    runnerText = new JTextField(5);
+    runnerText = new JTextField("  0", 5);
     runnerText.setFont(displayFont);
     runnerText.setEditable(false);
     runnerText.setBackground(Color.WHITE);
@@ -44,21 +44,12 @@ public class DisplayPanel extends JPanel
   // "point" in the previous roll
   public void update(int result, int brains, int shotguns, int runners)
   {
-    if (result != 0)
-    {
-        brainCount = brains;
-        shotgunCount = shotguns;
-        runnerCount = runners;
-        brainText.setText(" " + brainCount);
-        shotgunText.setText(" " + shotgunCount);
-        runnerText.setText(" " + runnerCount);
-    }
-    else
-    {
-      runnerCount = 0;
-      shotgunCount = 0;
-      shotgunText.setText("");
-      runnerText.setText("");
-    }
+    System.out.println("UPDATING" +brains+shotguns+ runners);
+    brainCount = brains;
+    shotgunCount = shotguns;
+    runnerCount = runners;
+    brainText.setText(" " + brainCount);
+    shotgunText.setText(" " + shotgunCount);
+    runnerText.setText(" " + runnerCount);
   }
 }

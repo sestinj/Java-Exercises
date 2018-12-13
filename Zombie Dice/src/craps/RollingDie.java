@@ -9,8 +9,8 @@ import java.io.*;
 public class RollingDie extends Die implements ImageObserver
 {
   private static final double slowdown = 0.97,
-                              speedFactor = 0.04,
-                              speedLimit = 2.0;
+                              speedFactor = 0.032,
+                              speedLimit = 0.5;
 
   private static int tableLeft, tableRight, tableTop, tableBottom;
 

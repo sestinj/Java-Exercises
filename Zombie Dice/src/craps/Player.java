@@ -10,6 +10,17 @@ package craps;
  * @author natesesti
  */
 public class Player {
+    private int score;
+    public int getScore() {
+        return score;
+    }
+    public void endTurn() {
+        score += numBrains;
+        numBrains = 0;
+        numShotguns = 0;
+        numRunners = 0;
+    }
+    
     private int numBrains;
     private int numShotguns;
     private int numRunners;
@@ -19,6 +30,9 @@ public class Player {
     public void addBrains(int num) {
         numBrains += num;
     }
+    public void clearBrains() {
+        this.numBrains = 0;
+    }
     public int getNumShotguns() {
         return numShotguns;
     }
@@ -26,7 +40,7 @@ public class Player {
         numShotguns += num;
     }
     public int getNumRunners() {
-        return numShotguns;
+        return numRunners;
     }
     public void addRunners(int num) {
         numRunners += num;

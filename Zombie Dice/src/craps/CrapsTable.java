@@ -15,6 +15,7 @@ public class CrapsTable extends JPanel
   final private Timer clock;
   final private CrapsGame game;
   final public DisplayPanel display;
+  public ControlPanel control;
 
   // Constructor
   private void initDie() {
@@ -80,14 +81,13 @@ public class CrapsTable extends JPanel
     }
     else
     {
-        System.out.println("Dice stopped rolling.");
       clock.stop();
       DiceState[] states = {die1.getState(), die2.getState(), die3.getState()};
-      int result = game.processRoll(states);
-      int brains = game.getNumBrains();
-      int shotguns = game.getNumShotguns();
-      int runners = game.getNumRunners();
-      display.update(result, brains, shotguns, runners);
+      int result = game.processRoll(states, this);
+      //int brains = game.current.getNumBrains();
+      //int shotguns = game.current.getNumShotguns();
+      //int runners = game.current.getNumRunners();
+      //display.update(result, brains, shotguns, runners);
     }
 
     repaint();
