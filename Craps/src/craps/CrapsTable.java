@@ -10,6 +10,7 @@ public class CrapsTable extends JPanel
                         implements ActionListener
 {
   private RollingDie[] die;
+  private RollingDie die1, die2;
   private final int delay = 20;
   private Timer clock;
   private CrapsGame game;
