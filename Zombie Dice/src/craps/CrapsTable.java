@@ -102,6 +102,7 @@ public class CrapsTable extends JPanel
 
   // Called automatically after a repaint request
   @Override
+  
   public void paintComponent(Graphics g)
   {
     super.paintComponent(g);
